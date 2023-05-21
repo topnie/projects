@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+    body {
+    background-color: #C7F9CC;
+    }
+    /* Common styles */
+    .konta, .hello {
+    font-size: 22px;
+    font-family: Arial;
+    color: #45856e;
+    text-align: center;
+    }
+
+    /* Form elements styles */
+    .logowanie {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 30%;
+    margin: 0 auto;
+    }
+    .logowanie input[type="text"], .logowanie select, .logowanie input[type="submit"] {
+    width: 80%;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+    /* Error message */
+    .alert-danger {
+    padding: 12px;
+    background-color: #f44336;
+    color: white;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    text-align: center;
+    }
+    /* Submit button */
+    .buttons {
+    background-color: #38A3A5;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    }
+    /* Table */
+    .konta-tabela {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    }
+    td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    }
+    .konta-tabela tr:nth-child(even) {
+    background-color: #a6dcab;
+    }
+    .konta-tabela tr:hover {
+    background-color: #c3e7c7;
+    }
+    .konta-tabela th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #38A3A5;
+    color: white;
+    }
+    /* Dropdown menu */
+    .dropdown-menu {
+    width: 30%;
+    background-color: #38A3A5;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    }
+    .dropdown-menu a {
+    color: white;
+    text-decoration: none;
+    }
+    .dropdown-menu a:hover {
+    background-color: #0095a8;
+    }
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<span class="alert alert-danger" th:if="${error}" th:text="${error}"></span>
+<p class="konta">Oczekujące wnioski o kredyt: </p>
+
+<table class="konta-tabela">
+    <tr>
+        <th>Numer kredytu</th>
+        <th>Numer konta</th>
+        <th>Kwota pożyczona</th>
+        <th>Kwota spłacona</th>
+        <th>Oprocentowanie</th>
+        <th>Czy zmienne</th>
+        <th>Typ rat</th>
+        <th>Zatwierdź</th>
+        <th>Odrzuć</th>
+    </tr>
+    <tr th:each="loan : ${requests}">
+        <td th:text="${loan.id}"></td>
+        <td th:text="${loan.nr_konta}"></td>
+        <td th:text="${loan.kwota_pozyczki}"></td>
+        <td th:text="${loan.kwota_splacona}"></td>
+        <td th:text="${loan.oprocentowanie}"></td>
+        <td th:text="${loan.czy_zmienne}"></td>
+        <td th:text="${loan.raty}"></td>
+        <td>
+            <form action="/employee/loan/accept" method="post">
+                <input type="hidden" name="nr_kredytu" th:value="${loan.id}">
+                <input type="submit" value="Zatwierdź wniosek" class="buttons">
+            </form>
+        </td>
+        <td>
+            <form action="/employee/loan/decline" method="post">
+                <input type="hidden" name="nr_kredytu" th:value="${loan.id}">
+                <input type="submit" value="Odrzuć wniosek" class="buttons">
+            </form>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

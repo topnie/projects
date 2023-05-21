@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<style>
+  body {
+    background-color: #C7F9CC;
+  }
+
+  .alert-danger {
+    padding: 12px;
+    background-color: #f44336;
+    color: white;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .logowanie {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=password], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=submit] {
+    width: 100%;
+    background-color: #57CC99;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  input[type=submit]:hover {
+    background-color: #38A3A5;
+  }
+</style>
+
+<head>
+  <link href="employee.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<span class="alert alert-danger" th:if="${error}" th:text="${error}"></span>
+<div class="logowanie">
+  <form action="/employee" method="post">
+    <label for="id">Numer pracownika:</label>
+    <input type="text" id="id" name="id"><br><br>
+    <label for="password">Hasło:</label>
+    <input type="password" id="password" name="password"><br><br>
+    <input type="submit" value="Login">
+  </form>
+</div>
+
+</body>
+</html>
+

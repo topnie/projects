@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<style>
+    body {
+        background-color: #C7F9CC;
+    }
+    .hello {
+        font-size: 50px;
+        font-family: Arial;
+        color: #45856e;
+    }
+    .historia {
+        font-size: 22px;
+        font-family: Arial;
+        color: #45856e;
+    }
+
+    .tabela {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    .tabela tr:nth-child(even){background-color: #a6dcab;}
+
+    .tabela tr:hover {background-color: #c3e7c7;}
+
+    .tabela th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #38A3A5;
+        color: white;
+    }
+
+</style>
+<head>
+    <!-- <link href="client.css" rel="stylesheet" type="text/css"> -->
+</head>
+<body>
+
+<p class="hello">Szczegóły konta <span th:if="${acc_number}"  th:text="${acc_number}"></span>.</p>
+
+<div>
+    <p class="historia">
+        <span th:text="'Właściciele konta: '"></span>
+        <span th:each="name, iterStat : ${owners}">
+            <span th:text="${name.imie} + ' ' + ${name.nazwisko}"></span>
+            <span th:unless="${iterStat.last}">, </span>
+        </span>
+    </p>
+</div>
+
+
+
+<p class="historia">Historia operacji na koncie: </p>
+
+<table class="tabela">
+    <tr>
+        <th>Data wykonania operacji</th>
+        <th>Typ operacji</th>
+        <th>Kwota</th>
+    </tr>
+    <tr th:each="historia : ${historia_operacji}">
+        <td th:text="${historia.data}"></td>
+        <td th:text="${historia.typ_operacji}"></td>
+        <td th:text="${historia.kwota}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

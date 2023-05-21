@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<style>
+    body {
+        background-color: #C7F9CC;
+    }
+    /* Add font-weight and padding to the heading */
+    .hello {
+        font-size: 50px;
+        font-family: Arial;
+        text-align: center;
+        color: #45856e;
+        font-weight: bold;
+        padding: 30px 0;
+    }
+    /* Add a margin-bottom to the sub-heading */
+    .konta {
+        font-size: 22px;
+        font-family: Arial;
+        color: #45856e;
+        margin-bottom: 20px;
+    }
+
+    /* Add a hover effect and rounded corners to the button */
+    .buttons {
+        background-color: #38A3A5; /* Green */
+        justify-content: center;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out; /* Add a hover effect */
+        border-radius: 20px; /* Add rounded corners */
+    }
+
+    /* Add hover effect to the button */
+    .buttons:hover {
+        background-color: #0095a8; /* Hover color for button */
+        transform: scale(1.1); /* Scale up the button on hover */
+    }
+
+    /* Table */
+    .konta-tabela {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    }
+    td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    }
+    .konta-tabela tr:nth-child(even) {
+    background-color: #a6dcab;
+    }
+    .konta-tabela tr:hover {
+    background-color: #c3e7c7;
+    }
+    .konta-tabela th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #38A3A5;
+    color: white;
+    }
+
+    /* Add a margin-top and center the link */
+    .logowanie {
+        margin-top: 20px;
+        text-align: center;
+        display: flex; /* use flexbox layout */
+
+        justify-content: center; /* center elements horizontally */
+    }
+
+</style>
+<head>
+  <!-- <link href="client.css" rel="stylesheet" type="text/css"> -->
+</head>
+<body>
+
+<p class="hello">Witaj <span th:if="${name}"  th:text="${name}"></span>!</p>
+
+<p class="konta">Obsługiwane konta: </p>
+
+<table class="konta-tabela">
+  <tr>
+    <th>Numer konta</th>
+    <th>Waluta</th>
+    <th>Stan konta</th>
+    <th>Dane konta</th>
+  </tr>
+  <tr th:each="account : ${accounts}">
+    <td th:text="${account.numer}"></td>
+    <td th:text="${account.waluta}"></td>
+    <td th:text="${account.stan}"></td>
+    <td>
+      <a th:href="@{/account(number=${account.numer})}" th:text="szczegóły"></a>
+    </td>
+  </tr>
+</table>
+
+<div >
+  <form action="/employee/loanpayment" method="post">
+    <button class = "buttons" type="submit">Kliknij, aby wprowadzić nadpłatę kredytu</button>
+  </form>
+</div>
+
+<div >
+  <form action="/employee/changeinforequest" method="post">
+    <button class = "buttons" type="submit">Kliknij, aby zobaczyć oczekujące wnioski o zmianę danych osobowych</button>
+  </form>
+</div>
+
+<div >
+  <form action="/employee/loans" method="post">
+    <button class = "buttons" type="submit">Kliknij, aby zobaczyć kredyty klientów</button>
+  </form>
+</div>
+
+<div >
+  <form action="/employee/adduser" method="post">
+    <button class = "buttons" type="submit">Kliknij, aby założyć nowe konto klienta</button>
+  </form>
+</div>
+
+<div >
+  <form action="/employee/addaccount" method="post">
+    <button class = "buttons" type="submit">Kliknij, aby założyć nowe konto bankowe</button>
+  </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+    body {
+    background-color: #C7F9CC;
+    }
+    /* Common styles */
+    .konta, .hello {
+    font-size: 22px;
+    font-family: Arial;
+    color: #45856e;
+    text-align: center;
+    }
+
+    /* Form elements styles */
+    .logowanie {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 30%;
+    margin: 0 auto;
+    }
+    .logowanie input[type="text"], .logowanie select, .logowanie input[type="submit"] {
+    width: 80%;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+    /* Error message */
+    .alert-danger {
+    padding: 12px;
+    background-color: #f44336;
+    color: white;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    text-align: center;
+    }
+    /* Submit button */
+    .buttons {
+    background-color: #38A3A5;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    }
+    /* Table */
+    .konta-tabela {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    }
+    td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    }
+    .konta-tabela tr:nth-child(even) {
+    background-color: #a6dcab;
+    }
+    .konta-tabela tr:hover {
+    background-color: #c3e7c7;
+    }
+    .konta-tabela th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #38A3A5;
+    color: white;
+    }
+    /* Dropdown menu */
+    .dropdown-menu {
+    width: 30%;
+    background-color: #38A3A5;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    }
+    .dropdown-menu a {
+    color: white;
+    text-decoration: none;
+    }
+    .dropdown-menu a:hover {
+    background-color: #0095a8;
+    }
+    </style>
+    <meta charset="UTF-8">
+    <title>Dodaj konto</title>
+</head>
+<body>
+
+<span class="alert alert-danger" th:if="${error}" th:text="${error}"></span>
+<p class="konta">Wprowadź dane nowego konta:</p>
+<form action ="/employee/add/account" method ="post" class="logowanie">
+    <label for="loan" class="konta">Numer pierwszego właściciela konta:</label>
+    <input type="text" id="loan" name="klientid1">
+    <label for="n" class="konta">Numer drugiego właściciela (opcjonalne):</label>
+    <input type="text" id="n" name="klientid2">
+    <label for="a" class="konta">Początkowy stan konta:</label>
+    <input type="text" id="a" name="stan">
+    <label for="oprocentowanie" class="konta">Wybierz walutę konta:</label>
+    <select id="oprocentowanie" name="waluta" class="dropdown-menu">
+        <option th:each="waluta : ${waluty}" th:text="${waluta}"></option>
+    </select>
+    <input type="submit" class="buttons" value="Stwórz konto">
+</form>
+
+</body>
+</html>

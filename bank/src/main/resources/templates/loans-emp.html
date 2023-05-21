@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<style>
+    body {
+        background-color: #C7F9CC;
+    }
+    .hello {
+        font-size: 50px;
+        font-family: Arial;
+        color: #45856e;
+    }
+    .konta {
+        font-size: 22px;
+        font-family: Arial;
+        color: #45856e;
+    }
+
+    .buttons {
+        background-color: #38A3A5; /* Green */
+        justify-content: center;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    .tabela {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    .tabela tr:nth-child(even){background-color: #a6dcab;}
+
+    .tabela tr:hover {background-color: #c3e7c7;}
+
+    .tabela th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #38A3A5;
+        color: white;
+    }
+
+</style>
+<head>
+  <!-- <link href="client.css" rel="stylesheet" type="text/css"> -->
+</head>
+<body>
+
+<p class="konta">Kredyty klientów: </p>
+
+<table class="tabela">
+  <tr>
+    <th>Numer kredytu</th>
+    <th>Numer konta</th>
+    <th>Kwota pożyczona</th>
+    <th>Kwota spłacona</th>
+    <th>Oprocentowanie</th>
+    <th>Czy zmienne</th>
+    <th>Stan</th>
+  </tr>
+  <tr th:each="loan : ${loans}">
+    <td th:text="${loan.id}"></td>
+    <td th:text="${loan.nr_konta}"></td>
+    <td th:text="${loan.kwota_pozyczki}"></td>
+    <td th:text="${loan.kwota_splacona}"></td>
+    <td th:text="${loan.oprocentowanie}"></td>
+    <td th:text="${loan.czy_zmienne}"></td>
+    <td th:text="${loan.stan}"></td>
+  </tr>
+</table>
+
+</body>
+</html>

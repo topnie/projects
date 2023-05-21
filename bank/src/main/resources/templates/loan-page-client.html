@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<style>
+  body {
+    background-color: #C7F9CC;
+  }
+  .hello {
+    font-size: 50px;
+    font-family: Arial;
+    color: #45856e;
+  }
+
+  .buttons {
+    background-color: #38A3A5; /* Green */
+    justify-content: center;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+
+  .historia {
+    font-size: 22px;
+    font-family: Arial;
+    color: #45856e;
+  }
+
+  .tabela {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  .tabela tr:nth-child(even){background-color: #a6dcab;}
+
+  .tabela tr:hover {background-color: #c3e7c7;}
+
+  .tabela th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #38A3A5;
+    color: white;
+  }
+
+</style>
+<head>
+  <!-- <link href="client.css" rel="stylesheet" type="text/css"> -->
+</head>
+<body>
+
+<span class="alert alert-danger" th:if="${error}" th:text="${error}"></span>
+
+<p class="hello">Szczegóły kredytu <span th:if="${number}"  th:text="${number}"></span>.</p>
+
+<p class="historia">Historia spłat kredytu: </p>
+
+<table class="tabela">
+  <tr>
+    <th>Data wykonania operacji</th>
+    <th>Typ operacji</th>
+    <th>Kwota</th>
+  </tr>
+  <tr th:each="historia : ${historia_operacji}">
+    <td th:text="${historia.data}"></td>
+    <td th:text="${historia.typ_operacji}"></td>
+    <td th:text="${historia.kwota}"></td>
+  </tr>
+</table>
+
+<div th:if="${stan_zaplaty == 'kredytsplacony'}">
+  Kredyt +spłacony i zarchiwizowany
+</div>
+<div th:if="${stan_zaplaty != 'kredytsplacony'}">
+  Wysokość aktualnej raty: <span th:text="${kwota_do_zaplacenia}"></span>
+  Data spłacenia aktualnej raty (deadline): <span th:text="${data_zaplaty}"></span>
+</div>
+<div th:if="${stan_zaplaty == 'spozniony'}">
+  <form action="/client/loan/pay/request" method="post">
+    <label for ="przycisk"> Spłata raty opóźniona! Do spłaty są wszystkie zaległe raty z naliczonymi odsetkami. </label>
+    <button class = "buttons" id ="przycisk" type="submit">Kliknij, aby zapłacić ratę</button>
+  </form>
+</div>
+<div th:if="${stan_zaplaty == 'rataoczekuje'}">
+  <form action="/client/loan/pay/request" method="post">
+    <label for ="p"> Rata oczekuje na spłatę. </label>
+    <button class = "buttons" id ="p" type="submit">Kliknij, aby zapłacić ratę</button>
+  </form>
+</div>
+<div th:if="${stan_zaplaty == 'rataoplacona'}">
+    <p class ="hello"> Aktualna rata jest już opłacona. Skontaktuj się z działem obsługi, jeśli chcesz wprowadzić nadpłatę. </p>
+</div>
+
+</body>
+</html>
